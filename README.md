@@ -79,6 +79,10 @@ The main thing I added for this to a bare new project using the SDK is this
 readme and the `.gitignore` file:
 
 
+## Updates
+
+1. Console command that acts like help: `em`
+
 
 ## Ideas for useful mods:
 
