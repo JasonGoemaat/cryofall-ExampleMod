@@ -17,5 +17,21 @@
   
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>    
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core.cpk\AtomicTorch.CBND.CoreMod.csproj" />
+  </ItemGroup>    
+  
+  <ItemGroup>
+    <Reference Include="AtomicTorch.CBND.GameApi.WPF">
+      <HintPath>..\..\..\Core\CryoFall.Mod.Sdk\LibsGameApi\AtomicTorch.CBND.GameApi.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="AtomicTorch.CBND.GameApi.WPF.Stubs">
+      <HintPath>..\..\..\Core\CryoFall.Mod.Sdk\LibsGameApi\AtomicTorch.CBND.GameApi.WPF.Stubs.dll</HintPath>
+    </Reference>
+    <Reference Include="AtomicTorch.GameEngine.Common.Primitives">
+      <HintPath>..\..\..\Core\CryoFall.Mod.Sdk\LibsGameApi\AtomicTorch.GameEngine.Common.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>  
 </Project>
