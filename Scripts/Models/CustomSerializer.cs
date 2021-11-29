@@ -8,9 +8,17 @@ namespace ExampleMod.Scripts.Models
     {
         public static void Serialize<T>(StringBuilder sb, string name, T value)
         {
-            if (value is string)
+            if (value is null)
+            {
+                sb.AppendFormat("\"{0}\":null,", name);
+            }
+            else if (value is string)
             {
                 sb.AppendFormat("\"{0}\":\"{1}\",", name, (value as string).Replace("\"", "\\\""));
+            }
+            else if (value is TimeSpan)
+            {
+                sb.AppendFormat("\"{0}\":\"{1}\",", name, value);
             }
             else if (value is bool)
             {
@@ -30,6 +38,9 @@ namespace ExampleMod.Scripts.Models
             {
                 sb.AppendLine(string.Format("    {0},", item.Serialize()));
             }
+            sb.Length--; // remove lsat lf
+            sb.Length--; // remove lsat cr
+            sb.Length--; // remove last comma
             sb.AppendLine("],");
         }
     }

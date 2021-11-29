@@ -45,6 +45,7 @@ namespace ExampleMod.Scripts.Models
             CustomSerializer.Serialize(sb, "organicValue", this.OrganicValue);
             CustomSerializer.Serialize(sb, "itemUseCaption", this.ItemUseCaption);
             CustomSerializer.Serialize(sb, "iconPath", this.IconPath);
+            sb.Length--; // remove last comma
             sb.Append("}");
             return sb.ToString();
         }
