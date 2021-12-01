@@ -6,11 +6,17 @@ namespace ExampleMod.ConsoleCommands.Console
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using AtomicTorch.CBND.CoreMod.Items.Ammo;
+    using AtomicTorch.CBND.CoreMod.Items.DataLogs.Base;
+    using AtomicTorch.CBND.CoreMod.Items.Devices;
+    using AtomicTorch.CBND.CoreMod.Items.Drones;
+    using AtomicTorch.CBND.CoreMod.Items.Equipment;
     using AtomicTorch.CBND.CoreMod.Items.Food;
     using AtomicTorch.CBND.CoreMod.Systems.Console;
     using AtomicTorch.CBND.CoreMod.Systems.ServerModerator;
     using AtomicTorch.CBND.CoreMod.Systems.ServerOperator;
     using AtomicTorch.CBND.GameApi.Data;
+    using AtomicTorch.CBND.GameApi.Data.Items;
     using AtomicTorch.CBND.GameApi.Scripting;
     using ExampleMod.Scripts.Models;
 
@@ -146,19 +152,66 @@ namespace ExampleMod.ConsoleCommands.Console
                 CustomSerializer.Serialize(sb, "shortId", entity.ShortId);
                 CustomSerializer.Serialize(sb, "name", entity.Name);
 
-                if (entity is ProtoItemFood)
-                {
-                    var food = entity as ProtoItemFood;
-                    CustomSerializer.Serialize(sb, "entityType", "food");
-                    CustomSerializer.Serialize(sb, "description", food.Description);
-                    CustomSerializer.Serialize(sb, "foodRestore", food.FoodRestore);
-                    CustomSerializer.Serialize(sb, "waterRestore", food.WaterRestore);
-                    CustomSerializer.Serialize(sb, "staminaRestore", food.StaminaRestore);
-                    CustomSerializer.Serialize(sb, "organicValue", food.OrganicValue);
-                    CustomSerializer.Serialize(sb, "maxItemsPerStack", food.MaxItemsPerStack);
-                    CustomSerializer.Serialize(sb, "freshnessDuration", food.FreshnessDuration);
-                    CustomSerializer.Serialize(sb, "freshnessMaxValue", food.FreshnessMaxValue);
+                if (entity is IProtoItem) {
+                    if (entity is IProtoItemAmmo)
+                    {
+                        var ammo = entity as IProtoItemAmmo;
+                        CustomSerializer.Serialize(sb, "proto", "IProtoItemAmmo");
+                        CustomSerializer.Serialize(sb, "isReferenceAmmo", ammo.IsReferenceAmmo);
+                        CustomSerializer.Serialize(sb, "isSuppressWeaponSpecialEffect", ammo.IsSuppressWeaponSpecialEffect);
+                        //CustomSerializer.Serialize(sb, "armorPiercingCoef", ammo.DamageDescription.ArmorPiercingCoef);
+                        //                    CustomSerializer.Serialize(sb, "armorPiercingCoef", ammo.DamageDescription.DamageProportions[0].);
+                        CustomSerializer.Serialize(sb, "damageValue", ammo.DamageDescription.DamageValue);
+                        CustomSerializer.Serialize(sb, "finalDamageMultiplier", ammo.DamageDescription.FinalDamageMultiplier);
+                        CustomSerializer.Serialize(sb, "rangeMax", ammo.DamageDescription.RangeMax);
+                    }
+
+                    if (entity is IProtoItemDataLog)
+                    {
+                        var dataLog = entity as IProtoItemDataLog;
+                        CustomSerializer.Serialize(sb, "proto", "IProtoItemDataLog");
+                        CustomSerializer.Serialize(sb, "text", dataLog.Text);
+                    }
+
+                    if (entity is IProtoItemPowerBank)
+                    {
+                        var powerBank = entity as IProtoItemPowerBank;
+                        CustomSerializer.Serialize(sb, "proto", "IProtoItemPowerBank");
+                        CustomSerializer.Serialize(sb, "durabilityMax", powerBank.DurabilityMax);
+                        CustomSerializer.Serialize(sb, "energyCapacity", powerBank.EnergyCapacity);
+                        CustomSerializer.Serialize(sb, "equipmentType", powerBank.EquipmentType);
+                    }
+
+                    //if (entity is IProtoItemEquipment)
+                    //{
+                    //    var item = entity as IProtoItemEquipment;
+                    //    CustomSerializer.Serialize(sb, "proto", "IProtoItemEquipment");
+                    //    CustomSerializer.Serialize(sb, "compatibleContainerSlotsIds", string.Join(',', item.CompatibleContainerSlotsIds));
+                    //    CustomSerializer.Serialize(sb, "durabilityMax", item.DurabilityMax);
+                    //    CustomSerializer.Serialize(sb, "equipmentType", item.EquipmentType);
+                    //    CustomSerializer.Serialize(sb, "isRepairable", item.IsRepairable);
+                    //    //CustomSerializer.Serialize(sb, "description", item.Description);
+                    //    //CustomSerializer.Serialize(sb, "isStackable", item.IsStackable);
+                    //    //CustomSerializer.Serialize(sb, "maxItemsPerStack", item.MaxItemsPerStack);
+
+                    //    // CustomSerializer.Serialize(sb, "protoEffects", string.Join(',', item.ProtoEffects.Sources.List[0].); // percent, source, value, ...
+
+                    //    if (entity is IProtoItemPowerBank)
+                    //    {
+                    //        var powerBank = entity as IProtoItemPowerBank;
+                    //        CustomSerializer.Serialize(sb, "isPowerBank", true);
+                    //        CustomSerializer.Serialize(sb, "maxItemsPerStack", powerBank.EnergyCapacity);
+                    //    }
+                    //}
+
+                    if (entity is IProtoItemDrone)
+                    {
+                        var item = entity as IProtoItemDrone;
+                        CustomSerializer.Serialize(sb, "proto", "IProtoItemDrone");
+                        CustomSerializer.Serialize(sb, "durabilityToStructurePointsConversionCoefficient", item.DurabilityToStructurePointsConversionCoefficient);
+                    }
                 }
+
                 sb.Length--; // get rid of last comma
 
                 sb.AppendLine("    },");

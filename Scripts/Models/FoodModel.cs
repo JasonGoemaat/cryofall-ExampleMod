@@ -32,7 +32,14 @@ namespace ExampleMod.Scripts.Models
         public float StaminaRestore;
         public ushort OrganicValue;
         public string ItemUseCaption;
-        public string IconPath; // use GenerateIconPath
+        public string IconPath;
+        
+        // use GenerateIconPath, SharedGetRelativeFolderPath
+        
+        //var type = this.GetType();
+        //var folderPath = SharedGetRelativeFolderPath(type, typeof(ProtoItem<,,>));
+        //return $"Items/{folderPath}/{type.Name}";
+
 
         public string Serialize()
         {
